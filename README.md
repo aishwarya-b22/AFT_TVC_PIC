@@ -1,4 +1,4 @@
-# AFT_TVC_PIC
+# AFT_TVC_PIC: Vignette
 
 This vignette reproduces the results in the simulation section from our submitted article:
 
