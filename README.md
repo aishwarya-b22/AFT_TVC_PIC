@@ -10,4 +10,4 @@ Hence, this vignette begins by providing details for simulating data from semipa
 
 ## Simulating, Fitting and Inference with a Weibull Hazard
 
-- This analysis is presented ...
+- This analysis is presented in [here](/simulation_AFT_TVC_PIC.md)
