@@ -169,10 +169,10 @@ simRes = simRunAFT(repeats = 200, n = 100, m = 5, beta_true  = c(1, -1), gamma_t
 We summarise the results and perform inference in the next section.
 
 ## Summarising Simulation Results
-In this section, we summarise the results, provide coverage probabilities and produce plots based on the simulation results. We first load the data file containing the results from the simulation study conducted in the previous section.
+In this section, we summarise the results, provide coverage probabilities and produce plots based on the simulation results. We first load the data file containing the results from the simulation study conducted in the previous section. With this, we can also replicate the plots in Figure 3 of the manuscript.
 
 ```r
-load("AFT_TVC_PIC_weibull_E0.3__n100_m5.RData")
+load("AFT_TVC_PIC_weibull_E0.3_n100_m5.RData")
 ```
 The following R file runs the summary functions for the results obtained from the simulation study.
 
