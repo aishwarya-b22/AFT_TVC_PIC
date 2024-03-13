@@ -169,7 +169,7 @@ simRes = simRunAFT(repeats = 200, n = 1000, m = 6, beta_true  = c(1, -1), gamma_
 We summarise the results and perform inference in the next section.
 
 ## Summarising Simulation Results
-In this section, we summarise the results, provide coverage probabilities and produce plots based on the simulation results. We first load the data file containing the results from the simulation study conducted in the previous section. With this, we can also replicate the plots in Figure 3 of the manuscript.
+In this section, we summarise the results, provide coverage probabilities and produce plots based on the simulation results. We first load the data file containing the results from the simulation study conducted in the previous section. With this, we can also replicate some of the plots in the manuscript.
 
 ```r
 load("AFT_TVC_PIC_weibull_E0.7_n1000_m10.RData")
@@ -206,19 +206,52 @@ Average Asymptotic SD       0.02696118  0.041693834  0.038637033
 Coverage Probability (MCSD) 0.95500000  0.950000000  0.960000000
 Coverage Probability (AASD) 0.94000000  0.915000000  0.960000000
 ```
-The following estimated baseline hazard and survival plots are also generated:
+The following estimated baseline hazard and survival plots are generated:
 
-[github_weibull_E0.7_n1000_hazard.pdf](https://github.com/aishwarya-b22/AFT_TVC_PIC/files/14584350/github_weibull_E0.7_n1000_hazard.pdf)
+![github_weibull_E0 7_n1000_hazard](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/4859df81-0049-47df-91ce-a1057d71ff46)
+![github_weibull_E0 7_n1000_survival](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/c525892c-c9e3-4bbc-87b2-b1543c81cb7c)
+
+We can also generate predictive survival plots. These are the predictive survival plots from Figure 3 of the manuscript, assessing a unit increase in one of the time-fixed covariates.
+
+![github_predSurv_timeFixed](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/782deaef-7e9f-4fc5-b1e9-6ce883e00f05)
+![github_survRatio_timeFixed](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/e06f033d-f898-484a-9b6d-fef9af1aae08)
+
+We can also generate the predictive survival plots from Figure 4 of the manuscript, assessing a unit increase in the time-varying covariate.
+
+![github_predSurv_timeVarying](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/0d6fef42-64a4-4f00-bae3-a550682356b4)
+![github_survRatio_timeVarying](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/1c9ed120-a98c-41df-9ed6-fcc79a576e84)
 
 ## Summarising Application Results
+In this section, we summarise the results and produce plots based on the results of the WBRTMel trial dataset. We first load the data file containing the results from optimising the real dataset. With this, we can also replicate some of the plots in the manuscript.
+
+```r
+load("realData_systemictherapy.RData")
+```
+The following R file runs the summary functions for the results obtained from the analysis of the dataset used in the application.
 
 ```r
 source("realDataSummary_AFT_TVC_PIC.R")
-``` 
+```
+
+### Results
+The following code generates the estimated coefficients and as well as the predictive survival plots for the various time-fixed and time-varying covariates.
 
 ```r
 data = list(Xmat = read.csv("WBRT_Xmat.csv")[, -1], tmat = read.csv("WBRT_tmat_PIC.csv")[, -1])
-
-
-realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75), estPlots = TRUE, predSurvPlot = TRUE)
+realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75), estPlots = FALSE, predSurvPlot = TRUE)
 ```
+```
+     Estimated coefficient pValue                 sigResult
+[1,] "0.574236056606409"   "0.000161588412554218" "***"    
+[2,] "-0.472578010930059"  "0.000978836551845801" "***"    
+[3,] "-0.704817699590601"  "1.75378204919216e-06" "***"    
+[4,] "-0.0365240999833249" "0.794999109528828"    "NSF"    
+[5,] "-0.0254496441606496" "1.99929005111838e-28" "***"    
+[6,] "0.482898201981513"   "0.0492377260867074"   "*"
+```
+We can also generate predictive survival plots. As an example, here we present a concise version of Figure 5 that displays plots of predicted distant intracranial free survival
+(in years) for a time-fixed covariate of interest, treatment (WBRT vs observation).
+
+![github_WBRT_predSurv_treatment](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/c2056081-52cf-4e96-9154-9fb647266322)
+
+
