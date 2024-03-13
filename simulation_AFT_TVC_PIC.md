@@ -36,7 +36,7 @@ In order to generate the required data, the following inputs are necessary:
 ### Simulating data from an AFT model with time-varying covariates and partly-interval censoring
 Here is an example that uses the R function to simulate the required data.
 ```r
-data = dataGen(n = 100, beta = c(1, -1), gamma = -0.5, tau_min = 0, tau_max = 2, dist = "weibull", alpha = 3, psi = 1, pi_E = 0.3, alpha_L = 0.9, alpha_R = 1.1)
+data = dataGenAFT(n = 100, beta = c(1, -1), gamma = -0.5, tau_min = 0, tau_max = 2, dist = "weibull", alpha = 3, psi = 1, pi_E = 0.3, alpha_L = 0.9, alpha_R = 1.1)
 ```
 ### Output
 The following list of outputs are useful and are necessary (except data$exact) for the optimisation process in the next section.
@@ -120,9 +120,9 @@ We provide descriptions of any additional inputs required for the optimisation f
 | outerMax | Maximum number of outer loops. The default value is 10 |
 
 ### Optimising a semiparametric AFT model with time-varying covariates and partly-interval censoring
-Here is a code snippet that uses the R function AFT_opt_onejump( ) with sample inputs to optimise the semiparametric AFT model:
+Here is a code snippet that uses the R function optimAFT( ) with sample inputs to optimise the semiparametric AFT model:
 ```r
-optObj = AFT_opt_onejump(n = 100, m = 5, Xmat = data$Xmat, Zmat = data$Zmat, zfin = data$zfin, yL = data$yL, yR = data$yR, delE = data$del[[1]], delL = data$del[[2], delR = data$del[[3]], delI = data$del[[4]], knots_option = "quantile", knotSTOP = 100, sd_option = 2 , quantVec = c(0.05, 0.95), h_init = 1, smooth_stop = FALSE, tol1 = 1e-6, tol2 = 1e-6, maxIterPerLoop = 5000, diffDF = 0.5, stableNum = 3, outerMax = 10)
+optObj = optimAFT(n = 100, m = 5, Xmat = data$Xmat, Zmat = data$Zmat, zfin = data$zfin, yL = data$yL, yR = data$yR, delE = data$del[[1]], delL = data$del[[2], delR = data$del[[3]], delI = data$del[[4]], knots_option = "quantile", knotSTOP = 100, sd_option = 2 , quantVec = c(0.05, 0.95), h_init = 1, smooth_stop = FALSE, tol1 = 1e-6, tol2 = 1e-6, maxIterPerLoop = 5000, diffDF = 0.5, stableNum = 3, outerMax = 10)
 ```
 ### Output
 The following list is a list of useful outputs from the optimisation function above.
@@ -162,9 +162,9 @@ In addition to the input parameters mentioned earlier, one needs to specify the 
 ### Simulation Study
 Here is a code snippet that uses the R function simRunAFT( ) with sample inputs to run a simulation study with 200 replicates based on a Weibull hazard with a sample size of $n = 100$ each. The average event proportion was set as 0.3 and $m$ (number of basis functions) was set to be 5.:
 ```r
-simRes = simRunAFT(repeats = 200, n = 100, m = 5, beta_true  = c(1, -1), gamma_true = -0.5, event_prop = 0.3, current_dist = "weibull", alpha = 3, psi = 1,
-                    tau_min = 0, tau_max = 2, alpha_L = 0.9, alpha_R = 1.1, knotsOpt = "quantile", knotPlace = 2, quantVec = c(0.29, 0.99), sdOpt = 2, 
-                    knotMaxIter  = 100, h_init = 0.001, smooth_stop = FALSE, maxIterPerLoop = 2000, tol1 = 1E-4, tol2 = 1E-4, diffDF = 0.5, stableNum = 3, outerMax = 15)
+simRes = simRunAFT(repeats = 200, n = 1000, m = 6, beta_true  = c(1, -1), gamma_true = -0.5, event_prop = 0.7, current_dist = "weibull", alpha = 3, psi = 1,
+          tau_min = 0, tau_max = 2, alpha_L = 0.9, alpha_R = 1.1, knotsOpt = "quantile", knotPlace = 2, quantVec = c(0.29, 0.99), sdOpt = 2, 
+          knotMaxIter  = 100, h_init = 0.001, smooth_stop = FALSE, maxIterPerLoop = 2000, tol1 = 1E-4, tol2 = 1E-4, diffDF = 0.7, stableNum = 1, outerMax = 6)
 ```
 We summarise the results and perform inference in the next section.
 
@@ -172,12 +172,12 @@ We summarise the results and perform inference in the next section.
 In this section, we summarise the results, provide coverage probabilities and produce plots based on the simulation results. We first load the data file containing the results from the simulation study conducted in the previous section. With this, we can also replicate the plots in Figure 3 of the manuscript.
 
 ```r
-load("AFT_TVC_PIC_weibull_E0.3_n100_m5.RData")
+load("AFT_TVC_PIC_weibull_E0.7_n1000_m10.RData")
 ```
 The following R file runs the summary functions for the results obtained from the simulation study.
 
 ```r
-source("simul_summary_AFT_TVC_PIC.R")
+source("simSummary_AFT_TVC_PIC.R")
 ```
 
 ### Input
@@ -185,9 +185,40 @@ In order to use the summary function for the simulation results, simulSummaryAFT
 
 | Input parameter  | Description |
 | ------------- | ------------- |
-| numPoints |   |
-| maxTime | |
+| numPoints | Number of points in the grid of accelerated failure times to generate the estimated baseline hazard and survival plots |
+| maxTime | Specifies the maximum value for the range for the grid of accelerated failure times for the estimated baseline hazard and survival plots |
+| estPlots | If TRUE, the estimated baseline hazard and survival plots will be generated |
+| predSurvPlot | If TRUE, the predictive survival plots will be generated |
+| repNum | Replication number from the simulation study for which the predictive survival plots should be generated for. The default value is 1. |
 
+### Results
+The following code generates the values of the bias, Monte Carlo standard deviation (MCSD), average asymptotic standard deviation (AASD) and the coverage probabilities (CP) calculated from generating 95\% confidence intervals using both the MCSDs and AASDs.
+
+```r
+simSummaryAFT(numPoints = 200, maxTime = 1.5, estPlots = TRUE, predSurvPlot = TRUE, repNum = 1)
+```
+
+```
+                                Beta_1       Beta_2        Gamma
+Bias                        0.00102714 -0.008103535 -0.003022216
+Monte Carlo SD              0.02801281  0.048015376  0.038969996
+Average Asymptotic SD       0.02696118  0.041693834  0.038637033
+Coverage Probability (MCSD) 0.95500000  0.950000000  0.960000000
+Coverage Probability (AASD) 0.94000000  0.915000000  0.960000000
+```
+The following estimated baseline hazard and survival plots are also generated:
+
+[github_weibull_E0.7_n1000_hazard.pdf](https://github.com/aishwarya-b22/AFT_TVC_PIC/files/14584350/github_weibull_E0.7_n1000_hazard.pdf)
 
 ## Summarising Application Results
 
+```r
+source("realDataSummary_AFT_TVC_PIC.R")
+``` 
+
+```r
+data = list(Xmat = read.csv("WBRT_Xmat.csv")[, -1], tmat = read.csv("WBRT_tmat_PIC.csv")[, -1])
+
+
+realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75), estPlots = TRUE, predSurvPlot = TRUE)
+```
