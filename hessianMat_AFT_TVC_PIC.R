@@ -1,4 +1,4 @@
-# Function to compute the full Hessian for both optimisation: 
+## Function to compute the full Hessian for both optimisation: 
 
 fullHessian <- function(beta, gamma, theta, knots, sd, XmatHess, Z_t,
                         id_Z, time_int, mod_time_int, delE, delL, delR, delI){
