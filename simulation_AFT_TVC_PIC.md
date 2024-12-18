@@ -189,14 +189,13 @@ In order to use the summary function for the simulation results, simulSummaryAFT
 | numPoints | Number of points in the grid of accelerated failure times to generate the estimated baseline hazard and survival plots |
 | maxTime | Specifies the maximum value for the range for the grid of accelerated failure times for the estimated baseline hazard and survival plots |
 | estPlots | If TRUE, the estimated baseline hazard and survival plots will be generated |
-| predSurvPlot | If TRUE, the predictive survival plots will be generated |
 | repNum | Replication number from the simulation study for which the predictive survival plots should be generated for. The default value is 1. |
 
 ### Results
 The following code generates the values of the bias, Monte Carlo standard deviation (MCSD), average asymptotic standard deviation (AASD) and the coverage probabilities (CP) calculated from generating 95\% confidence intervals using both the MCSDs and AASDs.
 
 ```r
-simSummaryAFT(numPoints = 200, maxTime = 1.5, estPlots = TRUE, predSurvPlot = TRUE, repNum = 1)
+simSummaryAFT(numPoints = 200, maxTime = 1.5, estPlots = TRUE, repNum = 1)
 ```
 
 ```
@@ -224,6 +223,12 @@ The following R file runs the summary functions for the results obtained from th
 ```r
 source("realDataSummary_AFT_TVC_PIC.R")
 ```
+### Input
+In order to use the summary function for the results from the real data application, realDataSummaryAFT( ), one needs to specify the following additional input:
+
+| Input parameter  | Description |
+| ------------- | ------------- |
+| predSurvPlot | If TRUE, the predicted conditional survival plots will be generated |
 
 ### Results
 The following code generates the estimated coefficients for the various time-fixed and time-varying covariates.
