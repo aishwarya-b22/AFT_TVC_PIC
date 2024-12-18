@@ -244,8 +244,11 @@ realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75),
 We can also generate the following predicted conditional survival plots as discussed in Section 6.2 of the paper (under Figure 3):
 
 [dynamic_prediction_tau0_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175215/dynamic_prediction_tau0_5x5inch_20241030.pdf)
+
 [dynamic_prediction_tau0.5_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175216/dynamic_prediction_tau0.5_5x5inch_20241030.pdf)
+
 [dynamic_prediction_tau1_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175218/dynamic_prediction_tau1_5x5inch_20241030.pdf)
+
 [dynamic_prediction_tau1.5_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175219/dynamic_prediction_tau1.5_5x5inch_20241030.pdf)
 
 
