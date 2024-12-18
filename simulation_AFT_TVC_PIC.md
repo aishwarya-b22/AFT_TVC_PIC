@@ -226,20 +226,20 @@ source("realDataSummary_AFT_TVC_PIC.R")
 ```
 
 ### Results
-The following code generates the estimated coefficients and as well as the predictive survival plots for the various time-fixed and time-varying covariates.
+The following code generates the estimated coefficients for the various time-fixed and time-varying covariates and as well as the predicted conditional survival plots.
 
 ```r
 data = list(Xmat = read.csv("WBRT_Xmat.csv")[, -1], tmat = read.csv("WBRT_tmat_PIC.csv")[, -1])
 realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75), estPlots = FALSE, predSurvPlot = TRUE)
 ```
 ```
-     Estimated coefficient pValue                 sigResult
-[1,] "0.574236056606409"   "0.000161588412554218" "***"    
-[2,] "-0.472578010930059"  "0.000978836551845801" "***"    
-[3,] "-0.704817699590601"  "1.75378204919216e-06" "***"    
-[4,] "-0.0365240999833249" "0.794999109528828"    "NSF"    
-[5,] "-0.0254496441606496" "1.99929005111838e-28" "***"    
-[6,] "0.482898201981513"   "0.0492377260867074"   "*"
+     Estimated coefficient pValue                sigResult
+[1,] "0.478036504835506"   "0.0226676423119583"  "*"      
+[2,] "-0.143161247595173"  "0.393043395193855"   "NSF"    
+[3,] "-0.49844251532736"   "0.00307742033856064" "**"     
+[4,] "-0.191879532598602"  "0.409104278987815"   "NSF"    
+[5,] "0.00553651762287834" "0.100112109963219"   "NSF"    
+[6,] "0.592837797963541"   "0.0403423136603388"  "*"   
 ```
 We can also generate the following predicted conditional survival plots as discussed in Section 6.2 of the paper (under Figure 3):
 
