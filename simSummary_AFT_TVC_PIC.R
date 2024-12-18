@@ -1,6 +1,6 @@
 # Summarise results and provides plots based on the real dataset:
 
-simSummaryAFT <- function(numPoints, maxTime, estPlots = TRUE, predSurvPlot = TRUE, repNum){
+simSummaryAFT <- function(numPoints, maxTime, estPlots = TRUE, repNum){
   
   source("fnstore_AFT_TVC_PIC.R")
   source("hessianMat_AFT_TVC_PIC.R")
@@ -241,44 +241,6 @@ simSummaryAFT <- function(numPoints, maxTime, estPlots = TRUE, predSurvPlot = TR
            col = c("red", "black", "#53868B"),           # Line colors
            lwd = 2,
            cex = 0.9) 
-  }
-  
-  if(predSurvPlot == TRUE){
-    
-    source("dataGen_AFT_TVC_PIC.R")
-    set.seed(repNum + 100)
-    dataPred = dataGenAFT(n, beta_true, gamma_true, tau_min, tau_max, current_dist, alpha, psi, pi_E = event_prop, alpha_L, alpha_R)
-    
-    betaVal = bStore[i,]
-    gammaVal = gStore[i]
-    thetaVal = tStore[i,]
-    asyVar = asyEigenVarStore[[i]]
-    basisKnots = knotStore[i,]
-    basisSD = sdStore[i,]
-    activeTheta = as.numeric(abs(thetaVal) < 0.01 & (allGrad[i,])[(bgDim + 1) :numPar] < 0)
-    
-    Xmat = dataPred$Xmat
-    delE = dataPred$del[[1]]
-    delL = dataPred$del[[2]]
-    delR = dataPred$del[[3]]
-    delI = dataPred$del[[4]]
-    censor_type = delE*1 + delL*3 + delI*4 + delR*2
-    yR = dataPred$yR
-    yL = dataPred$yL
-    t_ni = (yR^delE)*(yR^delL)*(yL^delR)*(yR^delI)
-    max_time = max(t_ni) 
-    
-    data = list(Xmat = cbind(1:nrow(Xmat), Xmat), censor_type = censor_type, max_time = max_time)
-    
-    std = sqrt(diag(asyVar))
-    
-    estimates_AB_simulation = list(beta_hat = betaVal, gamma_hat = gammaVal, theta_hat = thetaVal, asym_std_beta = std[1:bDim], asym_std_gamma = std[bgDim], asym_std_theta = std[c((bgDim +1):numPar)[which(activeTheta != 1)]], knots_location = basisKnots, knots_sigma = basisSD, cov_mat_theta = asyVar[(bgDim +1):numPar, (bgDim +1):numPar], index_active_theta = activeTheta)
-    rm(std)
-    
-    source("plAFT_GIC_TVC_Gaussian_1_autosmooth_AB_simulation_plot_design.R")
-    
-    plAFT_GIC_TVC_Gaussian_1_autosmooth_AB_simulation_plot_design(data = data, estimation_result = estimates_AB_simulation, knots_option = "percentile", plot_sig_lv = 0.05)
-    
   }
   
 }
