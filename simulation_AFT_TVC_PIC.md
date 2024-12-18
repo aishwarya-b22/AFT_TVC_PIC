@@ -226,7 +226,7 @@ source("realDataSummary_AFT_TVC_PIC.R")
 ```
 
 ### Results
-The following code generates the estimated coefficients for the various time-fixed and time-varying covariates and as well as the predicted conditional survival plots.
+The following code generates the estimated coefficients for the various time-fixed and time-varying covariates.
 
 ```r
 data = list(Xmat = read.csv("WBRT_Xmat.csv")[, -1], tmat = read.csv("WBRT_tmat_PIC.csv")[, -1])
@@ -243,6 +243,7 @@ realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75),
 ```
 We can also generate the following predicted conditional survival plots as discussed in Section 6.2 of the paper (under Figure 3):
 
+1) $\tau_i$ = 0:
 [dynamic_prediction_tau0_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175215/dynamic_prediction_tau0_5x5inch_20241030.pdf)
 
 [dynamic_prediction_tau0.5_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175216/dynamic_prediction_tau0.5_5x5inch_20241030.pdf)
