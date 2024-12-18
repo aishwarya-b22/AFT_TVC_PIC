@@ -209,7 +209,7 @@ Coverage Probability (AASD)  0.9650000  0.80500000  0.8650000
 ```
 The following estimated baseline hazard and survival plots are generated:
 
-[weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)
+[weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)\\
 [weibull_surv_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174540/weibull_surv_E0.3_n100_m5.pdf)
 
 ## Summarising Application Results
