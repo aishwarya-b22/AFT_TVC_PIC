@@ -1,7 +1,7 @@
 ---
 Title: "Simulation and Inference"
 Author: "Aishwarya Bhaskaran"
-Date: "March 2024"
+Date: "December 2024"
 Output:
   html_document: default
   pdf_document: default
@@ -24,19 +24,20 @@ In order to generate the required data, the following inputs are necessary:
 | n | Sample size  |
 | beta   | True values of beta  |
 | gamma  | True values of gamma  |
-| tau_min   | To generate treatment times according to Unif(tau_min, tau_max). The default value is 0. |
+| tau_min  | To generate treatment times according to Unif(tau_min, tau_max). The default value is 0. |
 | tau_max  | To generate treatment times according to Unif(tau_min, tau_max). The default value is 1. |
 | dist  | Distribution of hazard; choice between "weibull" and "log-logistic" |
 | alpha  | Shape parameter for specifying the distribution  |
 | psi  | Scale parameter for specifying the distribution  |
 | pi_E  | Average proportion of events in simulated sample  |
-| alpha_L   | Decreasing this value lowers proportion of left-censoring & increases proportion of interval censoring. The default value is 0.5.   |
-| alpha_R  | Increasing this value lowers proportion of right-censoring & increases proportion of interval censoring. The default value is 1.5.  |
+| alpha_L  | Decreasing this value lowers proportion of left-censoring & increases proportion of interval censoring. The default value is 0.5. |
+| alpha_R  | Increasing this value lowers proportion of right-censoring & increases proportion of interval censoring. The default value is 1.5. |
 
 ### Simulating data from an AFT model with time-varying covariates and partly-interval censoring
 Here is an example that uses the R function to simulate the required data.
 ```r
-data = dataGenAFT(n = 100, beta = c(1, -1), gamma = -0.5, tau_min = 0, tau_max = 2, dist = "weibull", alpha = 3, psi = 1, pi_E = 0.3, alpha_L = 0.9, alpha_R = 1.1)
+set.seed(123)
+data = dataGenAFT(n = 100, beta = c(1, -1), gamma = -0.1, tau_min = 0, tau_max = 2, dist = "weibull", alpha = 3, psi = 1, pi_E = 0.3, alpha_L = 0.9, alpha_R = 1.1)
 ```
 ### Output
 The following list of outputs are useful and are necessary (except data$exact) for the optimisation process in the next section.
@@ -59,7 +60,7 @@ print(censor_prop)
 ```
 ```
       Event times     Left-censored    Right-censored Interval-censored 
-             0.27              0.45              0.12              0.16
+             0.33              0.04              0.58              0.05
 ```
 
 We can preview the short-format and long-format data below.
@@ -210,16 +211,6 @@ The following estimated baseline hazard and survival plots are generated:
 
 ![github_weibull_E0 7_n1000_hazard](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/4859df81-0049-47df-91ce-a1057d71ff46)
 ![github_weibull_E0 7_n1000_survival](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/c525892c-c9e3-4bbc-87b2-b1543c81cb7c)
-
-We can also generate predictive survival plots. These are the predictive survival plots from Figure 3 of the manuscript, assessing a unit increase in one of the time-fixed covariates.
-
-![github_predSurv_timeFixed](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/782deaef-7e9f-4fc5-b1e9-6ce883e00f05)
-![github_survRatio_timeFixed](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/e06f033d-f898-484a-9b6d-fef9af1aae08)
-
-We can also generate the predictive survival plots from Figure 4 of the manuscript, assessing a unit increase in the time-varying covariate.
-
-![github_predSurv_timeVarying](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/0d6fef42-64a4-4f00-bae3-a550682356b4)
-![github_survRatio_timeVarying](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/1c9ed120-a98c-41df-9ed6-fcc79a576e84)
 
 ## Summarising Application Results
 In this section, we summarise the results and produce plots based on the results of the WBRTMel trial dataset. We first load the data file containing the results from optimising the real dataset. With this, we can also replicate some of the plots in the manuscript.
