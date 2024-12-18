@@ -105,17 +105,15 @@ realDataSummaryAFT <- function(numPoints, maxTime, estPlots = TRUE, predSurvPlot
   if(predSurvPlot == TRUE){
     
     std = sqrt(diag(asyVar))
-    estimates_steroids = list(beta_hat = bVal, gamma_hat = gVal, theta_hat = tVal, asym_std_beta = std[1:5], asym_std_gamma = std[6], asym_std_theta = std[c(7:11)[which(activeTheta != 1)]], knots_location = basisKnots, knots_sigma = basisSD, cov_mat_theta = asyVar[7:11, 7:11], index_active_theta = activeTheta)
+    estimates = list(beta_hat = bVal, gamma_hat = gVal, theta_hat = tVal, asym_std_beta = std[1:5], asym_std_gamma = std[6], asym_std_theta = std[c(7:11)[which(activeTheta != 1)]], knots_location = basisKnots, knots_sigma = basisSD, cov_mat_theta = asyVar[7:11, 7:11], index_active_theta = activeTheta)
     rm(std)
     
-    source("plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot_design.R")
-    
-    # change covariate ="Treat", "Gender", "Number", "EFB", "Age" for different plot
-    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot_design(data = data, covariate ="Treat", estimation_result = estimates_steroids, knots_option = "percentile", plot_sig_lv = 0.05)
-    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot_design(data = data, covariate ="Gender", estimation_result = estimates_steroids, knots_option = "percentile", plot_sig_lv = 0.05)
-    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot_design(data = data, covariate ="Number", estimation_result = estimates_steroids, knots_option = "percentile", plot_sig_lv = 0.05)
-    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot_design(data = data, covariate ="ED", estimation_result = estimates_steroids, knots_option = "percentile", plot_sig_lv = 0.05)
-    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot_design(data = data, covariate ="Age", estimation_result = estimates_steroids, knots_option = "percentile", plot_sig_lv = 0.05)
+    source("plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot.R")
+
+    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot(data = data, estimation_result = estimates, tau = 0)
+    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot(data = data, estimation_result = estimates, tau = 0.5)
+    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot(data = data, estimation_result = estimates, tau = 1)
+    plAFT_GIC_TVC_Gaussian_1_autosmooth_WBRT_plot(data = data, estimation_result = estimates, tau = 1.5)
     
   }
 }
