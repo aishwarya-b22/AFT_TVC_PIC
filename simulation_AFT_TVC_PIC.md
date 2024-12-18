@@ -49,7 +49,7 @@ The following list of outputs are useful and are necessary (except data$exact) f
 | yR  | Right time points ($y_i^R, 1 \leq i \leq n$)|
 | Xmat  | Matrix with time-fixed covariates  |
 | Zmat   | Matrix with time-varying covariates (Long-format)  |
-| zfin | $z_i(t_{ni})$; values of time-varying covariates at $t_{ni}$)
+| zfin | $z_i(t_{ni})$; values of time-varying covariates at $t_{ni}$|
 | del  | List of all censoring indicators (delE ($\delta_i$), delL ($\delta_i^L$), delR ($\delta_i^R$), delI ($\delta_i^I$)) |
 | censor_prop | Proportions of each type of censoring |
 
