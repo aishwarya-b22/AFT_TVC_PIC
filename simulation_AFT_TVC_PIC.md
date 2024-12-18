@@ -209,8 +209,8 @@ Coverage Probability (AASD)  0.9650000  0.80500000  0.8650000
 ```
 The following estimated baseline hazard and survival plots are generated:
 
-[weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)
-[weibull_surv_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174540/weibull_surv_E0.3_n100_m5.pdf)
+![weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)
+![weibull_surv_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174540/weibull_surv_E0.3_n100_m5.pdf)
 
 ## Summarising Application Results
 In this section, we summarise the results and produce dynamic prediction plots based on the results of the WBRTMel trial dataset. We first load the data file containing the results from optimising the real dataset. With this, we can also replicate some of the plots in the manuscript.
