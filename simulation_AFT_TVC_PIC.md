@@ -1,4 +1,4 @@
----
+ ---
 Title: "Simulation and Inference"
 Author: "Aishwarya Bhaskaran"
 Date: "December 2024"
@@ -240,9 +240,8 @@ realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75),
 [5,] "-0.0254496441606496" "1.99929005111838e-28" "***"    
 [6,] "0.482898201981513"   "0.0492377260867074"   "*"
 ```
-We can also generate predictive survival plots. As an example, here we present a concise version of Figure 5 that displays plots of predicted distant intracranial free survival
-(in years) for a time-fixed covariate of interest, treatment (WBRT vs observation).
+We can also generate the following predicted conditional survival plots as discussed in Section 6.2 of the paper (under Figure 3):
 
-![github_WBRT_predSurv_treatment](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/c2056081-52cf-4e96-9154-9fb647266322)
+
 
 
