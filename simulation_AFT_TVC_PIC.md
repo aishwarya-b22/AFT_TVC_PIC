@@ -60,7 +60,7 @@ print(censor_prop)
 ```
 ```
       Event times     Left-censored    Right-censored Interval-censored 
-             0.33              0.04              0.58              0.05
+             0.33              0.41              0.14              0.12
 ```
 
 We can preview the short-format and long-format data below.
@@ -72,13 +72,13 @@ colnames(short) = c("yL", "yR", "x1", "x2", "z_i(t_ni)", "delE", "delL", "delR",
 head(short)
 ```
 ```
-             yL         yR x1       x2 z_i(t_ni) delE delL delR delI
-[1,] 0.12537003 0.79929490  1 1.374922         1    0    0    0    1
-[2,] 0.14411819 0.14411819  0 1.240363         0    1    0    0    0
-[3,] 0.00000000 0.79772737  1 2.863321         1    0    1    0    0
-[4,] 0.09430258 0.09430258  0 2.341156         0    1    0    0    0
-[5,] 0.18171990 0.18171990  0 1.537551         0    1    0    0    0
-[6,] 0.00000000 0.37218399  0 2.547797         0    0    1    0    0
+             yL        yR x1        x2 z_i(t_ni) delE delL delR delI
+[1,] 0.00000000 0.3182455  0 1.7999669         0    0    1    0    0
+[2,] 0.30744422 0.3074442  1 0.9984706         1    1    0    0    0
+[3,] 0.00000000 0.2583901  0 1.4658391         0    0    1    0    0
+[4,] 0.07197562 0.4102962  1 2.8634215         0    0    0    0    1
+[5,] 0.52344045       Inf  1 1.4487072         0    0    0    1    0
+[6,] 0.00000000 0.1602124  0 2.6710507         0    0    1    0    0
 ```
 
 Long-format data:
@@ -87,12 +87,12 @@ head(Zmat)
 ```
 ```
      Individual      Start        End z_i(t)
-[1,]          1 0.00000000 0.08972662      0
-[2,]          1 0.08972662 0.79929490      1
-[3,]          2 0.00000000 0.14411819      0
-[4,]          3 0.00000000 0.43621940      0
-[5,]          3 0.43621940 0.79772737      1
-[6,]          4 0.00000000 0.09430258      0
+[1,]          1 0.00000000 0.31824547      0
+[2,]          2 0.00000000 0.01885981      0
+[3,]          2 0.01885981 0.30744422      1
+[4,]          3 0.00000000 0.25839012      0
+[5,]          4 0.00000000 0.41029622      0
+[6,]          5 0.00000000 0.52344045      0
 ```
 
 ## Optimisation
@@ -163,9 +163,9 @@ In addition to the input parameters mentioned earlier, one needs to specify the 
 ### Simulation Study
 Here is a code snippet that uses the R function simRunAFT( ) with sample inputs to run a simulation study with 200 replicates based on a Weibull hazard with a sample size of $n = 100$ each. The average event proportion was set as 0.3 and $m$ (number of basis functions) was set to be 5.:
 ```r
-simRes = simRunAFT(repeats = 200, n = 1000, m = 6, beta_true  = c(1, -1), gamma_true = -0.5, event_prop = 0.7, current_dist = "weibull", alpha = 3, psi = 1,
-          tau_min = 0, tau_max = 2, alpha_L = 0.9, alpha_R = 1.1, knotsOpt = "quantile", knotPlace = 2, quantVec = c(0.29, 0.99), sdOpt = 2, 
-          knotMaxIter  = 100, h_init = 0.001, smooth_stop = FALSE, maxIterPerLoop = 2000, tol1 = 1E-4, tol2 = 1E-4, diffDF = 0.7, stableNum = 1, outerMax = 6)
+simRes = simRunAFT(repeats = 200, n = 100, m = 5, beta_true  = c(1, -1), gamma_true = -0.1, event_prop = 0.3, current_dist = "weibull", alpha = 3, psi = 1,
+          tau_min = 0, tau_max = 2, alpha_L = 0.9, alpha_R = 1.1, knotsOpt = "quantile", knotPlace = 1, quantVec = c(0.1, 0.9), sdOpt = 2, 
+          knotMaxIter  = 100, h_init = 0.001, smooth_stop = FALSE, maxIterPerLoop = 2000, tol1 = 1E-6, tol2 = 1E-6, diffDF = 0.5, stableNum = 3, outerMax = 10)
 ```
 We summarise the results and perform inference in the next section.
 
@@ -173,7 +173,7 @@ We summarise the results and perform inference in the next section.
 In this section, we summarise the results, provide coverage probabilities and produce plots based on the simulation results. We first load the data file containing the results from the simulation study conducted in the previous section. With this, we can also replicate some of the plots in the manuscript.
 
 ```r
-load("AFT_TVC_PIC_weibull_E0.7_n1000_m10.RData")
+load("AFT_TVC_PIC_weibull_E0.3_n1000_m10.RData")
 ```
 The following R file runs the summary functions for the results obtained from the simulation study.
 
@@ -200,20 +200,20 @@ simSummaryAFT(numPoints = 200, maxTime = 1.5, estPlots = TRUE, predSurvPlot = TR
 ```
 
 ```
-                                Beta_1       Beta_2        Gamma
-Bias                        0.00102714 -0.008103535 -0.003022216
-Monte Carlo SD              0.02801281  0.048015376  0.038969996
-Average Asymptotic SD       0.02696118  0.041693834  0.038637033
-Coverage Probability (MCSD) 0.95500000  0.950000000  0.960000000
-Coverage Probability (AASD) 0.94000000  0.915000000  0.960000000
+                                Beta_1      Beta_2      Gamma
+Bias                        -0.0036853 -0.05452317 -0.1100646
+Monte Carlo SD               0.1087588  0.07918904  0.2171554
+Average Asymptotic SD        0.1174895  0.06124770  0.1932592
+Coverage Probability (MCSD)  0.9500000  0.89000000  0.9250000
+Coverage Probability (AASD)  0.9650000  0.80500000  0.8650000
 ```
 The following estimated baseline hazard and survival plots are generated:
 
-![github_weibull_E0 7_n1000_hazard](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/4859df81-0049-47df-91ce-a1057d71ff46)
-![github_weibull_E0 7_n1000_survival](https://github.com/aishwarya-b22/AFT_TVC_PIC/assets/61529713/c525892c-c9e3-4bbc-87b2-b1543c81cb7c)
+[weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)
+[weibull_surv_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174540/weibull_surv_E0.3_n100_m5.pdf)
 
 ## Summarising Application Results
-In this section, we summarise the results and produce plots based on the results of the WBRTMel trial dataset. We first load the data file containing the results from optimising the real dataset. With this, we can also replicate some of the plots in the manuscript.
+In this section, we summarise the results and produce dynamic prediction plots based on the results of the WBRTMel trial dataset. We first load the data file containing the results from optimising the real dataset. With this, we can also replicate some of the plots in the manuscript.
 
 ```r
 load("realData_systemictherapy.RData")
