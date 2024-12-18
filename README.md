@@ -4,7 +4,7 @@ This vignette reproduces the results in the simulation section from our submitte
 
 *A maximum penalised likelihood approach for semiparametric accelerated failure time models with time-varying covariates and partly interval censoring*. 
 
-A. Bhaskaran, D. Ma, B. Liquet, A. Hong, S. N. Lo, S. Heritier and J. Ma.
+A. Bhaskaran, D. Ma, B. Liquet, A. Hong, S. Heritier, S. N. Lo and J. Ma.
 
 Hence, this vignette begins by providing details for simulating data from semiparametric accelerated failure time models with time-varying covariates and partly interval censoring. It will be followed by our maximum penalised likelihood approach to fitting the model and inference on the estimated quantities.
 
