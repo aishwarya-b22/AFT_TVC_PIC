@@ -209,8 +209,8 @@ Coverage Probability (AASD)  0.9650000  0.80500000  0.8650000
 ```
 The following estimated baseline hazard and survival plots are generated:
 
-![weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)
-![weibull_surv_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174540/weibull_surv_E0.3_n100_m5.pdf)
+[weibull_haz_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174539/weibull_haz_E0.3_n100_m5.pdf)
+[weibull_surv_E0.3_n100_m5.pdf](https://github.com/user-attachments/files/18174540/weibull_surv_E0.3_n100_m5.pdf)
 
 ## Summarising Application Results
 In this section, we summarise the results and produce dynamic prediction plots based on the results of the WBRTMel trial dataset. We first load the data file containing the results from optimising the real dataset. With this, we can also replicate some of the plots in the manuscript.
@@ -242,6 +242,10 @@ realDataSummaryAFT(numPoints = 200, maxTime = quantile(postOpt$kappa_vec, 0.75),
 ```
 We can also generate the following predicted conditional survival plots as discussed in Section 6.2 of the paper (under Figure 3):
 
+[dynamic_prediction_tau0_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175215/dynamic_prediction_tau0_5x5inch_20241030.pdf)
+[dynamic_prediction_tau0.5_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175216/dynamic_prediction_tau0.5_5x5inch_20241030.pdf)
+[dynamic_prediction_tau1_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175218/dynamic_prediction_tau1_5x5inch_20241030.pdf)
+[dynamic_prediction_tau1.5_5x5inch_20241030.pdf](https://github.com/user-attachments/files/18175219/dynamic_prediction_tau1.5_5x5inch_20241030.pdf)
 
 
 
