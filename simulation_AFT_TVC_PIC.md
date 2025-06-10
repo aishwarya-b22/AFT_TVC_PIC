@@ -1,7 +1,6 @@
  ---
 Title: "Simulation and Inference"
-Author: "Aishwarya Bhaskaran"
-Date: "December 2024"
+Date: "June 2025"
 Output:
   html_document: default
   pdf_document: default
